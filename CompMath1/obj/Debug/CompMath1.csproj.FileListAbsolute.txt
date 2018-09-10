@@ -1,0 +1,7 @@
+C:\Users\SKOCH\source\repos\CompMath1\CompMath1\obj\Debug\CompMath1.csprojResolveAssemblyReference.cache
+C:\Users\SKOCH\source\repos\CompMath1\CompMath1\obj\Debug\CompMath1.csproj.CoreCompileInputs.cache
+C:\Users\SKOCH\source\repos\CompMath1\CompMath1\bin\Debug\CompMath1.exe.config
+C:\Users\SKOCH\source\repos\CompMath1\CompMath1\bin\Debug\CompMath1.exe
+C:\Users\SKOCH\source\repos\CompMath1\CompMath1\bin\Debug\CompMath1.pdb
+C:\Users\SKOCH\source\repos\CompMath1\CompMath1\obj\Debug\CompMath1.exe
+C:\Users\SKOCH\source\repos\CompMath1\CompMath1\obj\Debug\CompMath1.pdb
