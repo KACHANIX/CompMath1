@@ -61,15 +61,11 @@ namespace CompMath1
                 }
 
 
-                double[,] mat = new double[Quantity, Quantity];
-                for (int i = 0; i < Quantity; i++)
-                {
-                    for (int j = 0; j < Quantity; j++)
-                    {
-                        mat[i, j] = Matrix.InputMatrix[i, j];
-                    }
-                }
-                
+                Matrix.GenerateWorkingMatrix();
+                Matrix.Print();
+                Computations comps = new Computations();
+                comps.solve(Matrix);
+                Matrix.PrintResult();
             }
 
             return true;
@@ -101,9 +97,12 @@ namespace CompMath1
 
 
 
-
+            Matrix.GenerateWorkingMatrix();
             Matrix.Print();
-            
+            Computations comps = new Computations();
+            comps.solve(Matrix);
+            Matrix.PrintResult();
+
             return true;
         }
         public static bool RandomInput()
@@ -126,7 +125,14 @@ namespace CompMath1
                     Matrix.InputMatrix[i, j] = rnd.Next(-20, 20);
                 }
             }
+
+
+            Matrix.GenerateWorkingMatrix();
             Matrix.Print();
+            Computations comps = new Computations();
+            comps.solve(Matrix);
+            Matrix.PrintResult();
+
             return true;
         }
         public static bool Quit()
