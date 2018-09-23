@@ -9,25 +9,14 @@ namespace CompMath1
 {
     public  class Computations
     {
-        //public static double Determinant(double[,] Matrix)
-        //{
-        //}
-        //public static void TriangledMatrix()
-        //{
-        //}
-        //public static void Unknowns()
-        //{
-        //}
-        //public static void Discrepancies()
-        //{
-        //}
         public bool success;
         public int swapsCount;
-        public bool straightRun;
+        public bool Straight;
 
-        public void swap(Matrix workMatrix, int swapLineIndex)
+        public void Swap(Matrix workMatrix, int swapLineIndex)
         {
             double[] buffer = new double[workMatrix.Size];
+            double RightPart;
             int columnIndex;
             for (columnIndex = 0; columnIndex < workMatrix.Size; columnIndex++)
             {
@@ -40,26 +29,23 @@ namespace CompMath1
                 if (workMatrix.ValuesMatrix[necessaryLineIndex, swapLineIndex] != 0)
                     break;
             }
-            if (necessaryLineIndex == workMatrix.Size && workMatrix.ValuesMatrix[workMatrix.Size - 1, swapLineIndex] == 0)
-            {
-                success = false;
-                return;
-            }
             for (columnIndex = 0; columnIndex < workMatrix.Size; columnIndex++)
             {
                 workMatrix.ValuesMatrix[swapLineIndex, columnIndex] = workMatrix.ValuesMatrix[necessaryLineIndex, columnIndex];
                 workMatrix.ValuesMatrix[necessaryLineIndex, columnIndex] = buffer[columnIndex];
             }
+            RightPart = workMatrix.FreeTerms[swapLineIndex];
+            workMatrix.FreeTerms[swapLineIndex] = workMatrix.FreeTerms[necessaryLineIndex];
+            workMatrix.FreeTerms[necessaryLineIndex] = RightPart;
             swapsCount = necessaryLineIndex - swapLineIndex;
             success = true;
         }
 
-        public void solve(Matrix workMatrix)
+        public void Solve(Matrix workMatrix)
         {
+            Straight = true;
             double leadingСoefficient;
-
-            straightRun = true;
-            while (straightRun)
+            while (Straight)
             {
                 int swapLineIndex = 0;
                 try
@@ -109,13 +95,13 @@ namespace CompMath1
                         }
                     }
                     success = true;
-                    straightRun = false;
+                    Straight = false;
 
                 }
                 catch (DivideByZeroException)
                 {
                     //пытаемся найти строчку с ненулевым значением и поменять их местами
-                    swap(workMatrix, swapLineIndex);
+                    Swap(workMatrix, swapLineIndex);
 
                     if (success)
                     {
@@ -124,7 +110,7 @@ namespace CompMath1
                     else
                     {
                         success = false;
-                        straightRun = false;
+                        Straight = false;
                     }
                 }
             }
@@ -132,16 +118,31 @@ namespace CompMath1
             if (!success)
                 return;
 
-            // Обратный ход
+            //Обратный ход
+
             for (int lineIndex = workMatrix.Size - 1; lineIndex >= 0; lineIndex--)
             {
+                if (workMatrix.ValuesMatrix[lineIndex, lineIndex] == 0 && workMatrix.FreeTerms[lineIndex] != 0)
+                {
+                    double rootSum = 0;
+                    for (int i = workMatrix.Size - 1; i > lineIndex; i--)
+                    {
+                        rootSum += workMatrix.Roots[i] * workMatrix.ValuesMatrix[lineIndex, i];
+                    }
+
+                    if (rootSum != workMatrix.FreeTerms[lineIndex])
+                    {
+                        success = false;
+                        return;
+                    }
+                }
                 leadingСoefficient = workMatrix.FreeTerms[lineIndex];
                 for (int columnIndex = lineIndex + 1; columnIndex < workMatrix.Size; columnIndex++)
                     leadingСoefficient -= workMatrix.ValuesMatrix[lineIndex, columnIndex] * workMatrix.Roots[columnIndex];
                 workMatrix.Roots[lineIndex] = leadingСoefficient;
             }
 
-            //невязка
+            //Невязки
             double sum;
             for (int lineIndex = 0; lineIndex < workMatrix.Size; lineIndex++)
             {

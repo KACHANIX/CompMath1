@@ -64,7 +64,7 @@ namespace CompMath1
                 Matrix.GenerateWorkingMatrix();
                 Matrix.Print();
                 Computations comps = new Computations();
-                comps.solve(Matrix);
+                comps.Solve(Matrix);
                 Matrix.PrintResult();
             }
 
@@ -100,7 +100,7 @@ namespace CompMath1
             Matrix.GenerateWorkingMatrix();
             Matrix.Print();
             Computations comps = new Computations();
-            comps.solve(Matrix);
+            comps.Solve(Matrix);
             Matrix.PrintResult();
 
             return true;
@@ -130,7 +130,7 @@ namespace CompMath1
             Matrix.GenerateWorkingMatrix();
             Matrix.Print();
             Computations comps = new Computations();
-            comps.solve(Matrix);
+            comps.Solve(Matrix);
             Matrix.PrintResult();
 
             return true;

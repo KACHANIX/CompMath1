@@ -53,6 +53,7 @@ namespace CompMath1
             FreeTerms = new double[Size];
             Roots = new double[Size];
             Discrepancies = new double[Size];
+            Determinant = 1;
             for (int i = 0; i < Size; i++)
             {
                 for (int j = 0; j < Size + 1; j++)
@@ -68,6 +69,5 @@ namespace CompMath1
                 }
             }
         }
-
     }
 }
